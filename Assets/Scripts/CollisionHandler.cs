@@ -2,12 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [Tooltip("FX Prefab on player")][SerializeField] GameObject deathFX;
+    LevelLoader levelLoader;
+
     private void Start()
     {
-        //StartDeathSequence();
+        levelLoader = FindObjectOfType<LevelLoader>();
+
+        StartDeathSequence();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,5 +25,7 @@ public class CollisionHandler : MonoBehaviour
     {
         print("Player is dying");
         SendMessage("OnPlayerDeath");
+        deathFX.SetActive(true);
+        levelLoader.ReloadLevel();
     }
 }

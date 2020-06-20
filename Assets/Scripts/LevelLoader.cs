@@ -5,22 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    [Tooltip("In seconds")][SerializeField] float levelLoadDelay= 5f;
 
     int currentSceneIndex;
     // Start is called before the first frame update
     void Start()
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        Invoke("loadNextLevel", 5);
+        if (currentSceneIndex == 0)
+        {
+            Invoke("loadNextLevel", levelLoadDelay);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ReloadLevel()
     {
-        
+        Invoke("LoadSameLevel", levelLoadDelay);
     }
 
-    private void loadNextLevel()
+    private void LoadSameLevel()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    private void LoadNextLevel()
     {
         SceneManager.LoadScene(currentSceneIndex + 1);
     }
