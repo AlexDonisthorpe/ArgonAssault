@@ -14,10 +14,12 @@ public class LevelLoader : MonoBehaviour
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
         {
-            Invoke("loadNextLevel", levelLoadDelay);
+            Invoke("LoadNextLevel", levelLoadDelay);
         }
     }
 
+    // todo: There must be a tidier way to do this, can we cann function parameters with invoke?
+    //          IEnumerator maybe?
     public void ReloadLevel()
     {
         Invoke("LoadSameLevel", levelLoadDelay);
