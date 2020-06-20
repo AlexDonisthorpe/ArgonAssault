@@ -1,11 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
 {
+    private void Start()
+    {
+        //StartDeathSequence();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        print("Player Triggered Something!");
+        StartDeathSequence();
+    }
+
+    private void StartDeathSequence()
+    {
+        print("Player is dying");
+        SendMessage("OnPlayerDeath");
     }
 }

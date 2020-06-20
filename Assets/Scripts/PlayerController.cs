@@ -20,11 +20,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float controlRollFactor = -30f;
 
     float xThrow, yThrow;
+    bool isControlEnabled = true;
 
     void Update()
     {
-        ProcessTranslation();
-        ProcessRotation();
+        if (isControlEnabled)
+        {
+            ProcessTranslation();
+            ProcessRotation();
+        }
     }
 
     private void ProcessRotation()
@@ -53,5 +57,11 @@ public class PlayerController : MonoBehaviour
         float yPos = Mathf.Clamp(rawYPos, -yRange, yRange);
 
         transform.localPosition = new Vector3(xPos, yPos, transform.localPosition.z);
+    }
+
+    public void OnPlayerDeath() // Called by CollisionHandler
+    {
+        print("Stop the player from being able to control the ship");
+        isControlEnabled = false;
     }
 }
