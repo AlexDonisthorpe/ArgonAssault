@@ -13,7 +13,7 @@ public class CollisionHandler : MonoBehaviour
     {
         levelLoader = FindObjectOfType<LevelLoader>();
 
-        StartDeathSequence();
+       // StartDeathSequence();
     }
 
     private void OnTriggerEnter(Collider other)
