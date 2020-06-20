@@ -4,25 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    [Tooltip("In meters per second (ms^-1")] [SerializeField] float xSpeed = 16;
-    [Tooltip("In meters per second (ms^-1")] [SerializeField] float ySpeed = 16;
-    [SerializeField] float xRange = 11f;
-    [SerializeField] float yRange = 7f;
+    [Header("General")]
+    [Tooltip("In meters per second (ms^-1")] [SerializeField] float controlSpeed = 16;
+    [Tooltip("in m")][SerializeField] float xRange = 11f;
+    [Tooltip("in m")][SerializeField] float yRange = 7f;
+
+    [Header("Screen-position Based")]
     [SerializeField] float positionPitchFactor = -2.77f;
-    [SerializeField] float controlPitchFactor = -15f;
     [SerializeField] float positionYawFactor = 2.5f;
+
+    [Header("Control-throw Based")]
+    [SerializeField] float controlPitchFactor = -15f;
     [SerializeField] float controlRollFactor = -30f;
 
     float xThrow, yThrow;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         ProcessTranslation();
@@ -45,12 +43,12 @@ public class Player : MonoBehaviour
     private void ProcessTranslation()
     {
         xThrow = Input.GetAxis("Horizontal");
-        float xOffset = xThrow * xSpeed * Time.deltaTime;
+        float xOffset = xThrow * controlSpeed * Time.deltaTime;
         float rawXPos = transform.localPosition.x + xOffset;
         float xPos = Mathf.Clamp(rawXPos, -xRange, xRange);
 
         yThrow = Input.GetAxis("Vertical");
-        float yOffset = yThrow * ySpeed * Time.deltaTime;
+        float yOffset = yThrow * controlSpeed * Time.deltaTime;
         float rawYPos = transform.localPosition.y + yOffset;
         float yPos = Mathf.Clamp(rawYPos, -yRange, yRange);
 
