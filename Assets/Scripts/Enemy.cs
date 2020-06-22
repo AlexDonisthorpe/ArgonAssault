@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject deathFX;
     [SerializeField] Transform parent;
     [SerializeField] int scorePerHit = 12;
+    [SerializeField] int hitsRemaining = 2;
 
     Scoreboard _scoreboard;
     // Start is called before the first frame update
@@ -36,6 +37,15 @@ public class Enemy : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         _scoreboard.AddScore(scorePerHit);
+        hitsRemaining--;
+        if(hitsRemaining <= 0)
+        {
+            KillEnemy();
+        }
+    }
+
+    private void KillEnemy()
+    {
         StartDeathFX();
         Destroy(gameObject);
     }
